@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="WED.css">
+<style>
+.hero {
+ background-color: #ffffff;border-radius: 6px;
+  color: #ffffff; /* 黑字 */
+  border-radius: 5px;
+}
+.my {
+  color: #ffffff; /* 黑字 */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+}
+.me:hover{
+    filter: blur(2px);
+}
+.tt{
+    color: #ffffff;
+   text-align: center;
+}
+.sk{
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        left: 30vw;
+        top: vw;
+        gap: 8px;
+        background-color: #000000
+    }
+    .tag{
+        display: flex;
+        color: white;
+        padding: 6px 12px;
+        font-size: 15px;
+        font-weight: bolder;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        border-radius: 60px;
+        border: 2px solid #ccc;
+        transition: 0.5s ease;
+    }
+    .tag:hover{
+        background-color: #f0f0f0;
+        color: #000;
+        border-color: #007acc;
+
+    }
+</style>
+</head>
+<body>
+     <header>
+        <div class="title" style="text-align: center;">
+            <h1>期末網頁報告</h1>
+        </div>
+        <input type="checkbox" id="menu-toggle" hidden>
+        <label class="menu-btn" for="menu-toggle">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </label>
+                   <nav>
+                <ul class="nav" id="nav-menu">
+                    <li><a href="Web.html">首頁</a></li>
+                    <li><a href="About.html">關於</a></li>
+                    <li><a href="Protfilo.html">作品</a></li>
+                    <li><a href="Study.html">學到了什麼</a></li>
+                    <li><a href="Info.html">參考資料</a></li>
+                </ul>
+            </nav> 
+        <main>
+        <section class="hero">
+            <h2><marquee>自我介紹~</marquee></h2>
+            <img class="me" src="bid.jpg" width="220" height="200" style="display: block; margin: auto; border-radius: 100%;">
+  
+            <div class="my" style="text-align: center ;">
+                <BR><BR>
+            <p>嗨~我是程政綜，一位熱愛設計與動畫的學生。</p>
+            <p>這學期學會了 HTML、CSS 還有一點 JavaScript！</p>
+            <p>我特別喜歡動態效果與互動設計。</p>
+            <p>這個網站展示了我在這堂課的學習成果。</p>
+            </div>
+        </section>
+        <BR></BR>
+        <section>
+            <h2 class="tt">技能</h2>
+            <div class="sk">
+                <span class="tag">VFX視覺特效合成</span>
+                <span class="tag">Blender</span>
+                <span class="tag">3D動畫</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+            </div>
+        </section>
+        </main>
+         <button id="topBtn">⬆ TOP</button>
+        <BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+        <div class="ft" style="text-align: center;">
+        <footer>
+            <p>&copy;2025 all rights reserved</p>
+        </footer>
+        </div>
+        <script>
+  window.addEventListener("scroll", function () {
+    const button = document.getElementById("topBtn");
+    if (window.scrollY > 300) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+  window.addEventListener("scroll", function () {
+    const button = document.getElementById("topBtn");
+    if (window.scrollY > 300) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+
+  document.getElementById("topBtn").addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+    </header>
+</body>
+</html>
