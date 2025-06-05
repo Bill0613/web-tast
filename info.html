@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="WED.css">
+    <style>
+        .title{
+            color: #f0f0f0;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 900;
+           
+        }
+        .titl{
+            color: #f0f0f0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 900;
+        }
+        .flex-cards {
+  display: flex;
+  color: #000;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.card {
+  background: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 250px;
+  height: 250px; /* 自動撐高，因為內容量變多 */
+  padding: 20px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.ch {
+  margin-top: 10px;
+  color: #000;
+  background-color: #ffffffbe;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.ch:hover{
+    color: #ff7300;
+    text-decoration: line-through;
+    font-weight: bolder;
+}
+.img{
+  max-width: 100%;
+  height: auto;
+  margin-top: 5px;
+  transition: 0.5s ease-out;
+  border-radius: 3px;
+  box-shadow: 0.5px 0.6px 0.5px #f0f0f0b0;
+}
+.img:hover {
+  display: block;
+  flex-wrap: wrap;
+  position: absolute;
+  transition: 0.3s ease-in-out;
+  border-radius: 1px;
+  z-index: 9999; /* 保證在最上層 */
+  background: white; 
+  box-shadow: #f0f0f0b0 0.5px 0.6px 0.5px;
+  transform: scale(60) translateY(20%); /* 放大 + 向下移動 */
+  transform-origin: center center;
+}
+
+    </style>
+</head>
+<body>
+         <header>
+        <div class="title" style="text-align: center;">
+            <h1>期末網頁報告</h1>
+        </div>
+        <input type="checkbox" id="menu-toggle" hidden>
+        <label class="menu-btn" for="menu-toggle">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </label>
+            <nav>
+                <ul class="nav" id="nav-menu">
+                    <li><a href="Web.html">首頁</a></li>
+                    <li><a href="About.html">關於</a></li>
+                    <li><a href="Protfilo.html">作品</a></li>
+                    <li><a href="Study.html">學到了什麼</a></li>
+                    <li><a href="Info.html">參考資料</a></li>
+                </ul>
+            </nav>
+            <main>
+              <button id="topBtn">⬆ TOP</button> 
+                <h2 class="titl">參考資料</h2>
+<section>
+<div class="flex-cards">
+  <div class="card">版面參考資料
+    <p class="ch"><a class="ch" href="https://simpleinfo.cc/">簡訊設計官網</a></p>
+    <p class="ch"><a class="ch" href="https://codepen.io/">Code Pen程式共享平台</a></p>
+  </div>
+  <div class="card">程式技術
+    <p class="ch" style="top: 6vw;"><a class="ch" href="https://www.w3schools.com/">W3School</a></p>
+    <p class="ch" style="top: 6vw;"><a class="ch" href="https://youtu.be/6HHN0G2cwBM?si=In3m2MxCONmg1pWO">Papaya電腦教室教學</a></p>
+    <h3 class="ch">Notion自己寫的筆記</h3> 
+
+    <img class="img" src="notion-2.jpg" width="20" height="40">
+</div>
+  <div class="card">風格參考資料
+    <p class="ch"><a class="ch" href="https://monoame.com/">墨雨互動設計官網</a></p>
+    <p class="ch"><a class="ch" href="https://codepen.io/">Code Pen程式共享平台</a></p>
+  </div>
+</section>
+            </main>
+            <BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR>
+        <div class="ft" style="text-align: center;">
+        <footer>
+            <p>&copy;;2025 all rights reserved</p>
+        </footer>
+        </div>
+        <script>
+  window.addEventListener("scroll", function () {
+    const button = document.getElementById("topBtn");
+    if (window.scrollY > 300) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+  window.addEventListener("scroll", function () {
+    const button = document.getElementById("topBtn");
+    if (window.scrollY > 300) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+  document.getElementById("topBtn").addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+         </header>
+</body>
+</html>
