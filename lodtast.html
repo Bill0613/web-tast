@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>簡單 Loading 頁面</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #222;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      flex-direction: column;
+    }
+    .loader {
+      border: 6px solid #444;
+      border-top: 6px solid #4caf50;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    .loading-text {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader"></div>
+  <div class="loading-text">載入中...</div>
+
+  <script>
+    // 3秒後模擬載入完成，跳轉或顯示訊息
+    setTimeout(() => {
+      document.querySelector('.loading-text').textContent = '載入完成！🎉';
+      document.querySelector('.loader').style.display = 'none';
+      // 這裡可以改成跳轉頁面，例如：
+      // window.location.href = "web.html";
+      setTimeout(() => {
+  window.location.href = 'web.html';  // 換成你要跳轉的網址
+}, 3000);
+  </script>
+</body>
+</html>
