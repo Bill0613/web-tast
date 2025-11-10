@@ -102,6 +102,7 @@ nav a:hover::after {
   font-size: 0.95rem;
   border-top: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 .title{
   margin-left: -80px;
@@ -186,11 +187,12 @@ nav a:hover::after {
   border: none;
   border-radius: 6px;
   font-size: 16px;
-  background-color: #187FF2;
-  color: #fefefe;
+  background-color: #FCFCFE;
+  color: #030303;
 }
 .icon:hover{
-  background-color: orange;
+  background-color: #2372D9;
+  color: #FCFCFE;
   transition: 0.3s ease-in-out;
 }
 /*客製化滑鼠*/
@@ -308,7 +310,7 @@ nav a:hover::after {
 /* 按鈕 */
 .course-btn {
   cursor: pointer;
-  background: #000000;
+  background: #0D0D0D;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -323,11 +325,67 @@ nav a:hover::after {
   background-color: #2372D9;
 }
 
-  /*圖片輪播*/
-.img{
-  width: 100%;
-  height: 20%;
-}
+/*圖片輪播*/
+.carousel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .carousel-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .carousel-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .carousel-img.active {
+    opacity: 1;
+  }
+
+  /* 簡約按鈕 */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.534);
+    border: none;
+    border-radius: 10%;
+    color: #fff;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+
+  .prev { left: 1rem; }
+  .next { right: 1rem; }
+
+  /* 進度條 */
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .progress {
+    width: 10%;
+    height: 100%;
+    background: #00000094;
+    transition: width linear;
+  }
 /*TOP一鍵回頂端*/
 .topBtn {
   position: fixed;
@@ -519,12 +577,23 @@ footer nav a:hover {
   <div class="fill">
     <button class="cta-btn">加入課程</button>
   </div>
- <section>
-  <!--圖片論播-->
-   <div>
-    <img class="img" src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg">
-   </div>
- </section>
+ <section class="carousel">
+  <!-- 輪播圖片 -->
+  <div class="carousel-inner">
+    <img src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg" class="carousel-img active">
+    <img src="https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg" class="carousel-img">
+    <img src="https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg" class="carousel-img">
+  </div>
+
+  <!-- 上/下張按鈕 -->
+  <button class="prev">&lt;</button>
+  <button class="next">&gt;</button>
+
+  <!-- 進度條 -->
+  <div class="progress-bar">
+    <div class="progress"></div>
+  </div>
+</section>
  <!--客製化滑鼠-->
  <div class="mouse">
 <div class="mouse_item"></div>
@@ -634,7 +703,7 @@ menuBtn.addEventListener('keydown', (e) => {
 const body = document.querySelector('body');
 const mouse = document.querySelector('.mouse');
 const mouseItems = document.querySelectorAll('.mouse_item');
-const links = document.querySelectorAll('a,.title,.login-btn,.select-box,.menu-btn span,.menu-btn,.course-btn');
+const links = document.querySelectorAll('a,.title,.login-btn,.select-box,.menu-btn span,.menu-btn,.course-btn,.prev, .next');
 
 // 設定 scale 和 delay
 function setScaleAndDelay() {
@@ -697,7 +766,41 @@ function setIcon(icon) {
     });
   });
   //圖片輪播
+const images = document.querySelectorAll('.carousel-img');
+  const progress = document.querySelector('.progress');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  let current = 0;
+  let duration = 10000; // 每張圖片停留 5 秒
+  let interval;
 
+  function showImage(index) {
+    images.forEach((img,i)=> img.classList.toggle('active', i===index));
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    setTimeout(()=> progress.style.transition = `width ${duration}ms linear`, 50);
+    setTimeout(()=> progress.style.width = '100%', 60);
+  }
+
+  function nextImage() {
+    current = (current + 1) % images.length;
+    showImage(current);
+  }
+
+  function prevImage() {
+    current = (current - 1 + images.length) % images.length;
+    showImage(current);
+  }
+
+  nextBtn.addEventListener('click', ()=> { clearInterval(interval); nextImage(); interval = startInterval(); });
+  prevBtn.addEventListener('click', ()=> { clearInterval(interval); prevImage(); interval = startInterval(); });
+
+  function startInterval() {
+    showImage(current);
+    return setInterval(nextImage, duration);
+  }
+
+  interval = startInterval();
   
 </script>
 
