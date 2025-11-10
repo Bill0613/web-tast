@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Space+Grotesk:wght@300..700&family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <title>課程網頁練習</title>
+    <style>
+     *{
+         padding: 0;
+         margin: 0;
+         box-sizing: border-box;  
+     }
+.menu-btn {
+  display: none; /* 預設隱藏，等到手機版才顯示 */
+  cursor: pointer;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 20px;
+  z-index: 10;
+  user-select: none;
+}
+
+.menu-btn span {
+  display: block;
+  height: 2px;
+  background-color: #165FF2;
+  margin: 6px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* 漢堡打X的狀態 */
+.menu-btn.active .bar1 {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.active .bar2 {
+  opacity: 0;
+}
+
+.menu-btn.active .bar3 {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* 預設導覽列 (電腦版) */
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  list-style: none;
+  padding: 0px; /* 用 padding 控制整個 navbar 就好 */
+  margin: 0;
+  z-index: 1000;
+}
+nav li {
+  text-align: center;
+}
+
+nav a {
+  position: relative;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  line-height: 60px;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 3px;
+  width: 0px;
+  background-color: #0F71F2;
+  transition: 0.3s ease-in;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+.sub-navbar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 0 6rem;
+  height: 4em;
+
+  display: flex;
+  align-items: center;        /* ← 這是讓文字往上移的核心 */
+  justify-content: space-between;
+
+  font-size: 0.95rem;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.title{
+  margin-left: -80px;
+  text-decoration: none;
+  color: #000;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 45px;
+}
+.title:hover{
+  color: #2372D9;
+  transition: 0.3s ease-in;
+}
+.login-btn{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 4px;
+    margin: 8px;
+    border-radius: 5px;
+    background: #187FF2;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    transition: 0.3s;
+}
+.login-btn:hover {
+  background-color:#2372D9;
+}
+
+.login-btn i {
+  font-size: 20px;            /* icon大小 */
+  transition: transform 0.3s;
+}
+
+.login-btn:hover i {
+  transform: translateX(3px);  /* hover動畫 */
+}
+.select-box {
+  margin-right: 800px;
+  width: 10%;
+  background: #ffffffea;
+  border: none;
+  border-radius: 12px;
+  border: 1px solid ;
+ }
+.select-box select{
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  font-family: "Montserrat", sans-serif;
+  padding: 12px 16px;
+}
+.select-box:hover {
+  border-color: #0F71F2;
+  box-shadow: 0 0 6px rgba(0, 150, 255, 0.2);
+}
+.box{
+  display: flex;
+  font-size: medium;
+  padding: 12px;
+}
+
+.search {
+  width: 200px;
+  padding: 8px 0;
+  border: none;                 /* 拿掉整個框 */
+  border-bottom: 2px solid transparent; /* 預設底線透明 = 看不見 */
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+  transition: border-bottom-color 0.3s ease;
+}
+
+.search:focus {
+  border-bottom-color: #0F71F2; /* 點擊才出現底線 */
+  box-shadow: 0 5px 6px rgba(255, 255, 255, 0.4);
+}
+.icon{
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #187FF2;
+  color: #fefefe;
+}
+.icon:hover{
+  background-color: orange;
+  transition: 0.3s ease-in-out;
+}
+/*客製化滑鼠*/
+.mouse {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none; /* 滑鼠事件穿透 */
+  z-index: 10000;
+}
+.mouse_item {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #165FF2;
+  border-radius: 0%;
+  transform: translate(var(--x, 0), var(--y, 0)) scale(var(--scale, 0.5));
+  transition: transform var(--delay, 0.3s) ease-out,
+              opacity 0.45s,
+              border-radius 0.4s;
+  pointer-events: none;
+}
+
+.mouse_item.hover {
+  background: #7AAEEE; /* 滑鼠懸停變色 */
+  transform: translate(var(--x, 0), var(--y, 0)) scale(2);
+  opacity: 0.2;
+  border-radius: 70%;
+}
+
+:root {
+  --max-width: 1200px;
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --primary-color: #118df3;
+  --accent-color: #ee7300;
+  --text-color: #222;
+  --meta-color: #6b7280;
+  --gap: 24px;
+}
+
+/* ---------- Section 標題 ---------- */
+.topic1 {
+  max-width: var(--max-width);
+  margin: 0 auto 24px;
+  padding: 0 20px;
+  font-size: 28px;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-color);
+}
+.topic2{
+  max-width: var(--max-width);
+  margin: 0 auto 24px;
+  padding: 0 20px;
+  font-size: 28px;
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  color: var(--text-color);
+}
+
+/* ---------- 課程網格 ---------- */
+.courses {
+  max-width: var(--max-width);
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--gap);
+}
+
+/* ---------- 課程卡片 ---------- */
+.course-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* 圖片區塊 */
+.course-thumb {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0f4f8, #e9eff8);
+  object-fit: cover;
+}
+
+/* 課程標題 */
+.course-title {
+  font-weight: 500;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+/* 課程 Meta */
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  color: var(--meta-color);
+}
+
+/* 按鈕 */
+.course-btn {
+  cursor: pointer;
+  background: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  transition: filter 0.2s ease;
+}
+.course-btn:hover {
+  filter: brightness(1.1);
+  transition: 0.1s ease-in;
+  background-color: #2372D9;
+}
+
+  /*圖片輪播*/
+.img{
+  width: 100%;
+  height: 20%;
+}
+/*TOP一鍵回頂端*/
+.topBtn {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  z-index: 99;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 30px;
+  font-family: "Montserrat", sans-serif;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.topBtn:hover {
+  background-color: #0F71F2;
+  transform: scale(1.1);
+}
+footer {
+  background: #f8f8f8;
+  padding: 2rem 4rem;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* 手機版自動換行 */
+  gap: 2.3rem;
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+footer p {
+  margin: 0;
+  font-size: 15  px;
+  font-family: "Montserrat", sans-serif;
+}
+
+footer nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+footer nav a {
+  color: #555;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.2s;
+  line-height: 16px;
+}
+
+footer nav a:hover {
+  color: #2372D9; /* 清爽藍 hover */
+}
+@media (max-width: 768px){
+  .menu-btn {
+    display: inline-block; /* 手機版才顯示漢堡 */
+  }
+  nav ul {
+    display: none;          /* 預設隱藏 */
+    flex-direction: column;
+    position: fixed;        /* 固定在螢幕 */
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px 0;
+    z-index: 2000;
+    transition: all 0.3s ease-in-out;
+  }
+
+  nav ul.show {
+    display: flex;          /* 漢堡點擊展開 */
+  }
+
+  nav li {
+    margin: 15px 0;
+    text-align: center;
+  }
+  nav a{
+    display: inline-flex;
+    line-height: 16px;
+  }
+  .title{
+    display: flex;
+  }
+  .cta{
+    display: none;
+  }
+/* Login 按鈕（手機版置中） */
+.login-btn {
+  width: auto;                  
+  margin: 40px auto 0 auto;
+  padding: 12px;    
+  position: static;             
+}
+.select-box{
+  margin-right: auto;
+  width: 30%;
+}
+.select-box select{
+  display: flex;
+  
+}
+.mouse{
+  display: none;
+}
+.box{
+  display: flex;
+  font-size: small;
+}
+.img{
+  width: 100%;
+  height: 30%;
+}
+  .topic1 {
+    font-size: 24px;
+  }
+  .course-card {
+    padding: 14px;
+  }
+  .course-thumb {
+    height: 140px;
+  }
+  .topBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  }
+  footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  footer nav {
+    justify-content: center;
+  }
+} 
+
+    </style>
+</head>
+<body>
+<header>
+   <label class="menu-btn" id="menu-btn" aria-label="切換選單" tabindex="0" role="button">
+    <span class="bar1"></span>
+    <span class="bar2"></span>
+    <span class="bar3"></span>
+  </label>
+  <div class="sub-navbar">
+        <h1>
+         <a class="title" href="#">LOGO</a>   
+        </h1>
+  <div class="select-box">
+  <select>
+    <option disabled selected>探索課程</option>
+    <option value="python">Python程式課</option>
+    <option value="coding">前端工程</option>
+    <option value="Ai">AI實作課</option>
+    <option value="english">英文</option>
+  </select>
+  </div>
+  <!--搜尋框-->
+  <div class="box">
+      <input type="search" class="search" id="search" placeholder="搜尋課程....." />
+      <button class="icon"><i class="fa fa-search"></i></button>
+  </div>
+    <nav>
+    <ul id="nav-menu">
+      <button class="login-btn">
+        <!-- SVG圖示 -->
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <span>登入｜註冊</span>
+      </button>  
+      <li><a href="#">關於我們</a></li>
+      <li><a href="#">師資介紹</a></li>
+      <li><a href="#">定價方案</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main>
+  <div class="fill">
+    <button class="cta-btn">加入課程</button>
+  </div>
+ <section>
+  <!--圖片論播-->
+   <div>
+    <img class="img" src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg">
+   </div>
+ </section>
+ <!--客製化滑鼠-->
+ <div class="mouse">
+<div class="mouse_item"></div>
+<div class="mouse_item"></div>
+<div class="mouse_item"></div>
+<div class="mouse_item"></div>
+<div class="mouse_item"></div>
+</div>
+<br>
+ <div>
+  <h2 class="topic1">最新課程</h2>
+  <section class="courses" aria-label="課程清單">
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">Blender 入門實戰</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 1200</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">英文會話實務</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 800</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">前端互動 UI</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 900</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">Python 實務應用</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 1100</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+  </section>
+ </div>
+ <!---->
+  <div>
+  <section class="courses" aria-label="課程清單"></section>  
+    <h2 class="topic2">精選課程</h2>
+    <section class="courses" aria-label="課程清單">
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">Blender 入門實戰</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 1200</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">英文會話實務</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 800</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">前端互動 UI</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 900</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+
+    <article class="course-card" tabindex="0">
+      <div class="course-thumb" aria-hidden="true"></div>
+      <div class="course-title">Python 實務應用</div>
+      <div class="course-meta"><span>NEXELINK</span><span>NT$ 1100</span></div>
+      <button class="course-btn">了解詳情</button>
+    </article>
+</section>
+ </div>
+ <button class="topBtn" id="backToTop">⬆ TOP</button>
+ <footer>
+  <p>© 2025 NEXELINK STUDIO | 版權所有</p>
+  <nav>
+    <a href="#">Facebook</a>
+    <a href="#">Website</a>
+    <a href="#">Instagram</a>
+  </nav>
+</footer>
+
+</main>
+</header>
+
+
+<script>
+const menuBtn = document.getElementById('menu-btn');
+const navMenu = document.getElementById('nav-menu');
+
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navMenu.classList.toggle('show');
+});
+
+// 支援鍵盤操作 Enter / Space 切換選單
+menuBtn.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    menuBtn.click();
+  }
+});
+//客製化滑鼠
+const body = document.querySelector('body');
+const mouse = document.querySelector('.mouse');
+const mouseItems = document.querySelectorAll('.mouse_item');
+const links = document.querySelectorAll('a,.title,.login-btn,.select-box,.menu-btn span,.menu-btn,.course-btn');
+
+// 設定 scale 和 delay
+function setScaleAndDelay() {
+  mouseItems.forEach((item, index) => {
+    const scale = (10 - index) / 10; // 每個小圈圈大小不同
+    const delay = index / 15;        // 動畫延遲
+    item.style.setProperty('--scale', scale);
+    item.style.setProperty('--delay', `${delay}s`);
+  });
+}
+
+setScaleAndDelay();
+
+// 滑鼠移動效果
+function mouseMoveEffect(e) {
+  const x = e.clientX - 10; // 讓小圈圈中心對準滑鼠
+  const y = e.clientY - 10;
+  mouseItems.forEach(item => {
+    item.style.setProperty('--x', `${x}px`);
+    item.style.setProperty('--y', `${y}px`);
+  });
+}
+
+body.addEventListener('mousemove', mouseMoveEffect);
+
+// 懸停動畫
+function mouseEnterEffect() {
+  mouseItems.forEach(item => item.classList.add('hover'));
+}
+function mouseOutEffect() {
+  mouseItems.forEach(item => item.classList.remove('hover'));
+}
+
+links.forEach(link => {
+  link.addEventListener('mouseenter', mouseEnterEffect);
+  link.addEventListener('mouseout', mouseOutEffect);
+});
+
+
+//SVG切換/
+const useTag = document.querySelector('.login-btn svg use');
+
+function setIcon(icon) {
+  useTag.setAttribute('href', `#login-${icon}`);
+}
+//TOP 
+  window.addEventListener("scroll", function () {
+    const button = document.getElementById("backToTop");
+    if (window.scrollY > 300) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+  document.getElementById("backToTop").addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+  //圖片輪播
+
+  
+</script>
+
+</body>
+</html>
